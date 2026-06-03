@@ -1,0 +1,167 @@
+{
+  "theme": "LIGHT",
+  "archetype": "Organic & Earthy / Coastal Architectural Hybrid",
+  "mood": "Premium, trustworthy, dedicated, modern architectural, master craftsman.",
+  "colors": {
+    "background": "#FAFAF9",
+    "surface": "#FFFFFF",
+    "surface_alt": "#F5F5F0",
+    "primary": "#1E3A5F",
+    "primary_hover": "#2C5282",
+    "secondary": "#D8C3A5",
+    "text_main": "#0F172A",
+    "text_muted": "#475569",
+    "border": "#E2E8F0",
+    "accent": "#007AFF"
+  },
+  "typography": {
+    "heading_font": "Playfair Display",
+    "body_font": "Manrope",
+    "h1": "text-5xl sm:text-6xl tracking-tight font-heading font-medium text-slate-900",
+    "h2": "text-3xl sm:text-4xl tracking-tight font-heading text-slate-900",
+    "h3": "text-2xl sm:text-3xl font-heading text-slate-900",
+    "h4": "text-xl font-heading text-slate-900",
+    "body": "text-base font-body text-slate-600 leading-relaxed",
+    "body_small": "text-sm font-body text-slate-500",
+    "overline": "text-xs tracking-[0.2em] uppercase font-body text-primary font-semibold"
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-6 sm:px-8 lg:px-12",
+    "section_padding": "py-24 md:py-32",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8",
+    "border_radius": "rounded-none md:rounded-sm",
+    "button_padding": "px-8 py-4"
+  },
+  "surfaces_and_borders": {
+    "cards": "bg-white border border-border/50 shadow-sm",
+    "glass": "backdrop-blur-xl bg-white/80 border-b border-border/40 shadow-sm",
+    "images": "shadow-md",
+    "inputs": "bg-white border-border focus:border-primary focus:ring-1 focus:ring-primary rounded-none"
+  },
+  "components": {
+    "navigation": {
+      "style": "sticky top-0 z-50 transition-all duration-300",
+      "background": "backdrop-blur-xl bg-white/80",
+      "links": "text-sm font-medium text-slate-700 hover:text-primary transition-colors"
+    },
+    "hero": {
+      "layout": "relative h-[90vh] min-h-[600px] flex items-center justify-center text-center",
+      "overlay": "absolute inset-0 bg-black/40 z-10",
+      "content": "relative z-20 max-w-4xl mx-auto px-6 text-white space-y-8",
+      "h1_override": "text-5xl sm:text-6xl md:text-7xl font-heading text-white tracking-tight leading-tight",
+      "subtitle": "text-lg sm:text-xl font-body text-white/90 max-w-2xl mx-auto"
+    },
+    "buttons": {
+      "primary": "inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-medium hover:bg-primary_hover transition-colors duration-300 rounded-none",
+      "secondary": "inline-flex items-center justify-center px-8 py-4 bg-transparent border border-primary text-primary font-medium hover:bg-primary/5 transition-colors duration-300 rounded-none",
+      "white": "inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-medium hover:bg-white/90 transition-colors duration-300 rounded-none"
+    }
+  },
+  "motion_and_interactions": {
+    "hover": "transition-all duration-300 ease-out",
+    "fade_in": "animate-in fade-in slide-in-from-bottom-4 duration-700",
+    "stagger": "delay-[100ms] increment per item"
+  },
+  "media": {
+    "hero_rapid_bay": {
+      "url": "https://images.pexels.com/photos/27565377/pexels-photo-27565377.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Rapid Bay / Adelaide beach landscape for hero banner",
+      "placement": "Hero Section Background"
+    },
+    "hero_fallback": {
+      "url": "https://images.pexels.com/photos/33191833/pexels-photo-33191833.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Dramatic clouds over beach",
+      "placement": "Alternative Hero / Call to Action Banner"
+    },
+    "glazier_working": {
+      "url": "https://images.pexels.com/photos/5768107/pexels-photo-5768107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Glazier fixing window",
+      "placement": "About Theo Section"
+    },
+    "architectural_house": {
+      "url": "https://images.pexels.com/photos/19344325/pexels-photo-19344325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Modern architectural house with large windows",
+      "placement": "Services or Gallery"
+    },
+    "architectural_detail": {
+      "url": "https://images.pexels.com/photos/15743361/pexels-photo-15743361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Contemporary house design featuring a large reflective window",
+      "placement": "What is uPVC Section"
+    },
+    "window_frame_detail": {
+      "url": "https://images.pexels.com/photos/2525369/pexels-photo-2525369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Modern brown-framed open window revealing indoor plants",
+      "placement": "Deceuninck Legend Feature Section"
+    },
+    "window_frame_close": {
+      "url": "https://images.unsplash.com/photo-1564327481459-8bcd5561cf86?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHx3aW5kb3clMjBmcmFtZSUyMGRldGFpbCUyMHVQVkN8ZW58MHx8fHwxNzgwNDk4NDE4fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Grey metal framed glass window detail",
+      "placement": "Gallery or Specs Section"
+    }
+  },
+  "pages_structure": [
+    {
+      "name": "Home",
+      "sections": [
+        "Hero (Rapid Bay + Brand Intro)",
+        "Introduction / Philosophy (About Theo preview)",
+        "Services Overview",
+        "Why uPVC / Deceuninck Legend highlight",
+        "Gallery Teaser",
+        "Contact CTA"
+      ]
+    },
+    {
+      "name": "About",
+      "sections": [
+        "Theo's Story (Qualifications, Tonsley TAFE)",
+        "Craftsmanship Philosophy",
+        "Adelaide Focus"
+      ]
+    },
+    {
+      "name": "Services",
+      "sections": [
+        "uPVC Windows & Doors Supply/Fitment",
+        "Repairs & Maintenance",
+        "Complete Window Renovations",
+        "Flyscreens & Security Screens"
+      ]
+    },
+    {
+      "name": "What is uPVC & Deceuninck Legend",
+      "sections": [
+        "Benefits of uPVC (Thermal, Noise, Durability, Security)",
+        "Deceuninck Legend Specifications (5-chamber sash, 76mm, 52mm glazing)",
+        "Feature Image / Specs Showcase"
+      ]
+    },
+    {
+      "name": "Gallery",
+      "sections": [
+        "Grid of completed jobs and architectural uPVC installations"
+      ]
+    },
+    {
+      "name": "Contact & Quote",
+      "sections": [
+        "Contact Details (Phone, Email, Service Area)",
+        "Request a Quote Form (Name, Address, Job Type, Message)"
+      ]
+    }
+  ],
+  "accessibility_and_testing": {
+    "data_testid_requirement": "All interactive and key informational elements MUST include a data-testid attribute.",
+    "contrast": "Ensure text over images uses proper overlays for readability."
+  },
+  "instructions_to_main_agent": [
+    "Use standard HTML + Tailwind for marketing layouts. Use Shadcn for the Quote Request form.",
+    "Implement lucide-react for icons (e.g., thermal insulation, noise reduction, security).",
+    "Use 'Playfair Display' for headings (import via Google Fonts in index.css) and 'Manrope' for body.",
+    "Maintain a clean, architectural layout with generous spacing (py-24, px-8).",
+    "Build a sticky navigation bar with glassmorphism.",
+    "Ensure the hero image has a max bg-black/40 overlay so the Rapid Bay beach is clearly visible.",
+    "Do NOT use placeholder images; rely exclusively on the provided media URLs.",
+    "In the Deceuninck section, emphasize the technical specs (5-chamber, 76mm wing, up to 52mm glazing) with premium typography."
+  ]
+}
