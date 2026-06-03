@@ -1,0 +1,46 @@
+{
+  "summary": "End-to-end testing of NikoVision marketing site. Backend (7 pytest tests) and frontend (navigation, quote form submission, mobile menu, footer, testid uniqueness) all PASS.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Quote form - missing required fields",
+        "issue": "Because <Input> fields use HTML5 'required' attribute, the browser blocks form submission natively and toast.error('Please complete all required fields.') in onSubmit is never reached when name/email/phone/message are empty. The sonner error toast only triggers when job_type is the missing field (Select has no native required). Minor UX inconsistency - not a functional bug.",
+        "affected_selectors": ["[data-testid=form-submit]"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_nikovision_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Optional: Decide whether missing-field handling should rely on native HTML5 validation (current) or on the JS toast in onSubmit. If toast is desired for all missing fields, remove the 'required' attribute on inputs OR pre-validate before relying on native handler.",
+    "Optional: Replace placeholder phone (0400 000 000) and email (hello@nikovision.com.au) with Theo's real contact when ready (already documented as placeholders)."
+  ],
+  "critical_code_review_comments": [
+    "server.py: logger is defined (line 117) AFTER it is referenced inside create_quote/create_contact handlers (lines 78, 97). Works at runtime (handlers are called after module load) but is non-idiomatic; move logger setup above route definitions.",
+    "server.py: CORS allow_origins='*' combined with allow_credentials=True is invalid per CORS spec; browsers will reject credentialed requests. Use a specific origin list or set allow_credentials=False.",
+    "server.py: @app.on_event('shutdown') is deprecated in modern FastAPI; consider lifespan handlers.",
+    "Contact.jsx & all pages: Toaster is mounted inside Contact page only. Toasts triggered elsewhere (none currently) would not render. Consider mounting <Toaster /> once at App/Layout root.",
+    "No backend rate limiting or simple captcha on /api/quotes & /api/contact - public form is open to spam abuse."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_nikovision_api.py"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "test_credentials": "N/A - no auth in app",
+  "seed_data_creation": "Quote/contact records prefixed with TEST_ created via API tests (left in DB for inspection; small footprint).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend exposes GET /api/, POST /api/quotes (201), GET /api/quotes, POST /api/contact (201). Pydantic v2 with EmailStr validates emails returning 422. Frontend routes: / /about /services /upvc /gallery /contact. Nav testids derive from label.toLowerCase().replace(/[^a-z]/g,'') so 'uPVC & Legend' => 'upvclegend' (note: no 'amp'). Quote form success uses data-testid=quote-success. Sonner Toaster is on /contact only.",
+  "rca_of_the_issue": "No bugs to RCA. Only minor UX observation that HTML5 'required' attribute on inputs short-circuits the JS-based missing-fields toast in Contact.jsx onSubmit handler."
+}
