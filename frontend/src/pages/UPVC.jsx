@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "../components/ui/accordion";
 import { IMAGES, UPVC_BENEFITS, DECEUNINCK_FEATURES, FAQS } from "../lib/siteData";
+import WindowRange from "../components/WindowRange";
 
 const iconMap = { Thermometer, Volume2, Hourglass, Sparkles, Zap, Lock };
 
@@ -98,6 +99,9 @@ export default function UPVC() {
           </div>
         </div>
       </section>
+
+      {/* Window & Door Range */}
+      <WindowRange />
 
       {/* Deceuninck Legend */}
       <section className="nv-section bg-brand-ink text-white">
