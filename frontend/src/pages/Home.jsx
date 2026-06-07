@@ -217,23 +217,23 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
             <img
-              src={IMAGES.architecturalHouse}
-              alt="Modern home with uPVC windows"
+              src="/gallery/gallery-01.jpeg"
+              alt="uPVC sliding door installation"
               className="md:col-span-7 h-72 md:h-[420px] w-full object-cover"
             />
             <img
-              src={IMAGES.windowFrameClose}
-              alt="uPVC window frame detail"
+              src="/gallery/gallery-15.jpeg"
+              alt="uPVC window with pool view"
               className="md:col-span-5 h-72 md:h-[420px] w-full object-cover"
             />
             <img
-              src={IMAGES.architecturalDetail}
-              alt="Architectural window detail"
+              src="/gallery/gallery-04.jpeg"
+              alt="Internal uPVC frame finish"
               className="md:col-span-5 h-72 md:h-[360px] w-full object-cover"
             />
             <img
-              src={IMAGES.galleryA}
-              alt="Interior with new uPVC windows"
+              src="/gallery/gallery-31.jpeg"
+              alt="Completed uPVC renovation"
               className="md:col-span-7 h-72 md:h-[360px] w-full object-cover"
             />
           </div>
