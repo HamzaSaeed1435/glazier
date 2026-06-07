@@ -1,18 +1,30 @@
 import { Link } from "react-router-dom";
-import { IMAGES } from "../lib/siteData";
+import { useState } from "react";
+import { X } from "lucide-react";
 
-const items = [
-  { src: IMAGES.architecturalHouse, span: "md:col-span-7 md:row-span-2 h-[640px]", caption: "Whole-home renovation  ·  Glenelg" },
-  { src: IMAGES.windowFrameClose, span: "md:col-span-5 h-[310px]", caption: "Deceuninck Legend detail" },
-  { src: IMAGES.architecturalDetail, span: "md:col-span-5 h-[310px]", caption: "Floor-to-ceiling fixed glazing" },
-  { src: IMAGES.windowFrameDetail, span: "md:col-span-6 h-[400px]", caption: "Tilt-and-turn awning, brown frame" },
-  { src: IMAGES.galleryA, span: "md:col-span-6 h-[400px]", caption: "Internal finish, master bedroom" },
-  { src: IMAGES.galleryB, span: "md:col-span-4 h-[380px]", caption: "Kitchen casement window" },
-  { src: IMAGES.galleryC, span: "md:col-span-4 h-[380px]", caption: "Bifold uPVC door system" },
-  { src: IMAGES.galleryD, span: "md:col-span-4 h-[380px]", caption: "Living-room double-glazing" },
+// 31 real NikoVision job photos, served from /public/gallery/
+const GALLERY = Array.from({ length: 31 }, (_, i) => ({
+  src: `/gallery/gallery-${String(i + 1).padStart(2, "0")}.jpeg`,
+  alt: `NikoVision uPVC installation ${i + 1}`,
+}));
+
+// Varied bento spans — repeats over the set to produce a rhythm of large/small tiles
+const SPANS = [
+  "md:col-span-7 md:row-span-2 h-[280px] md:h-[560px]",
+  "md:col-span-5 h-[280px] md:h-[270px]",
+  "md:col-span-5 h-[280px] md:h-[270px]",
+  "md:col-span-4 h-[260px] md:h-[340px]",
+  "md:col-span-4 h-[260px] md:h-[340px]",
+  "md:col-span-4 h-[260px] md:h-[340px]",
+  "md:col-span-6 h-[280px] md:h-[400px]",
+  "md:col-span-6 h-[280px] md:h-[400px]",
+  "md:col-span-5 h-[280px] md:h-[360px]",
+  "md:col-span-7 h-[280px] md:h-[360px]",
 ];
 
 export default function Gallery() {
+  const [lightbox, setLightbox] = useState(null);
+
   return (
     <div data-testid="page-gallery">
       <section className="nv-section pt-32">
@@ -26,35 +38,60 @@ export default function Gallery() {
             </span>
           </h1>
           <p className="mt-8 max-w-2xl text-brand-inkMuted leading-relaxed">
-            A selection of installations across Adelaide — from single
-            replacements to full home renovations. New work is added as it's
-            completed.
+            A selection of completed installations across Adelaide — uPVC
+            windows, doors and renovations photographed on site. Click any
+            image to view it full size.
           </p>
         </div>
       </section>
 
       <section className="pb-24">
         <div className="nv-container">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {items.map((it, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+            {GALLERY.map((it, idx) => (
               <figure
                 key={idx}
                 data-testid={`gallery-item-${idx}`}
-                className={`relative overflow-hidden group ${it.span}`}
+                onClick={() => setLightbox(it)}
+                className={`relative overflow-hidden group cursor-pointer bg-brand-surfaceAlt ${SPANS[idx % SPANS.length]}`}
               >
                 <img
                   src={it.src}
-                  alt={it.caption}
+                  alt={it.alt}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <figcaption className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black/70 to-transparent text-white text-xs tracking-[0.18em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  {it.caption}
-                </figcaption>
+                <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/20 transition-colors duration-500" />
               </figure>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          data-testid="gallery-lightbox"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 animate-fade-in"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            data-testid="gallery-lightbox-close"
+            onClick={() => setLightbox(null)}
+            aria-label="Close"
+            className="absolute top-6 right-6 text-white/80 hover:text-white p-2"
+          >
+            <X size={28} />
+          </button>
+          <img
+            src={lightbox.src}
+            alt={lightbox.alt}
+            className="max-w-full max-h-full object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       <section className="bg-brand-surfaceAlt py-24">
         <div className="nv-container text-center max-w-3xl mx-auto">
