@@ -6,8 +6,9 @@ export const SITE = {
   tagline: "uPVC Glazing, Crafted in Adelaide",
   ownerShort: "Theo",
   ownerFull: "Theofani Tzelepis",
-  phone: "0400 000 000",
-  email: "hello@nikovision.com.au",
+  phone: "0422 021 020",
+  email: "nikovisionglazing@gmail.com",
+  abn: "57 648 702 837",
   serviceArea: "Adelaide & Greater South Australia",
   hours: "Mon – Fri  ·  7am – 5pm",
 };

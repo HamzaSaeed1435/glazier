@@ -186,6 +186,7 @@ export const Footer = () => {
       <div className="border-t border-white/10">
         <div className="nv-container py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <p>© {new Date().getFullYear()} NikoVision. All rights reserved.</p>
+          <p data-testid="footer-abn">ABN {SITE.abn}</p>
           <p>Crafted for Adelaide homes.</p>
         </div>
       </div>

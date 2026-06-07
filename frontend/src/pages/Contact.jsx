@@ -298,6 +298,16 @@ export default function Contact() {
                   </p>
                 </div>
               </div>
+
+              <div className="pt-4 border-t border-brand-line">
+                <p className="nv-overline mb-1">ABN</p>
+                <p
+                  data-testid="contact-abn"
+                  className="font-body text-sm tracking-wider text-brand-inkMuted"
+                >
+                  {SITE.abn}
+                </p>
+              </div>
             </div>
           </aside>
         </div>
