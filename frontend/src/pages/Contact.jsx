@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Phone, Mail, MapPin, Clock, Check, Loader2 } from "lucide-react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -65,8 +65,6 @@ export default function Contact() {
 
   return (
     <div data-testid="page-contact">
-      <Toaster richColors position="top-right" />
-
       <section className="nv-section pt-32 pb-16">
         <div className="nv-container">
           <p className="nv-overline mb-6">Contact</p>

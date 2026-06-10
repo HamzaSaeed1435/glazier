@@ -18,28 +18,16 @@ export const IMAGES = {
     "https://images.pexels.com/photos/27565377/pexels-photo-27565377.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1600",
   heroFallback:
     "https://images.pexels.com/photos/33191833/pexels-photo-33191833.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1600",
-  glazierWorking:
-    "https://images.pexels.com/photos/5768107/pexels-photo-5768107.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
-  architecturalHouse:
-    "https://images.pexels.com/photos/19344325/pexels-photo-19344325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-  architecturalDetail:
-    "https://images.pexels.com/photos/15743361/pexels-photo-15743361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-  windowFrameDetail:
-    "https://images.pexels.com/photos/2525369/pexels-photo-2525369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
-  windowFrameClose:
-    "https://images.unsplash.com/photo-1564327481459-8bcd5561cf86?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHx3aW5kb3clMjBmcmFtZSUyMGRldGFpbCUyMHVQVkN8ZW58MHx8fHwxNzgwNDk4NDE4fDA&ixlib=rb-4.1.0&q=85&w=1400",
-  galleryA:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
-  galleryB:
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=80",
-  galleryC:
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-  galleryD:
-    "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=80",
-  galleryE:
-    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80",
-  galleryF:
-    "https://images.unsplash.com/photo-1600573472556-e636c2acda88?auto=format&fit=crop&w=1400&q=80",
+  // Real NikoVision uPVC job photos — replacing prior stock imagery
+  glazierWorking: "/gallery/gallery-08.jpeg",
+  architecturalHouse: "/gallery/gallery-04.jpeg",
+  architecturalDetail: "/gallery/gallery-07.jpeg",
+  windowFrameDetail: "/gallery/gallery-12.jpeg",
+  windowFrameClose: "/gallery/gallery-18.jpeg",
+  aboutPortrait: "/gallery/gallery-23.jpeg",
+  legendDetail: "/gallery/gallery-22.jpeg",
+  upvcHero: "/gallery/gallery-15.jpeg",
+  contactSide: "/gallery/gallery-09.jpeg",
 };
 
 export const SERVICES = [
@@ -108,19 +96,19 @@ export const UPVC_BENEFITS = [
 
 export const DECEUNINCK_FEATURES = [
   {
-    spec: "5-chamber",
+    spec: "6-chamber",
     label: "Sash profile",
-    body: "A five-chambered sash for superior thermal insulation and structural rigidity.",
+    body: "A six-chambered sash for superior thermal insulation and structural rigidity.",
   },
   {
-    spec: "76 mm",
+    spec: "80 mm",
     label: "Frame depth",
-    body: "Generous frame depth allowing premium glazing units and weather seals.",
+    body: "Generous 80mm frame depth allowing premium glazing units and weather seals.",
   },
   {
-    spec: "52 mm",
-    label: "Max glazing",
-    body: "Accommodates double and triple glazing for outstanding acoustic and thermal performance.",
+    spec: "24–52 mm",
+    label: "Glass thickness",
+    body: "Accommodates double and triple glazing from 24mm up to 52mm for outstanding acoustic and thermal performance.",
   },
   {
     spec: "10 yr",
@@ -153,6 +141,54 @@ export const JOB_TYPES = [
   "Single window or door replacement",
   "Full home window renovation",
   "Flyscreens or security screens",
+  "Emergency glass replacement",
+  "Pet door installation",
+  "Shower screen / mirror / splashback",
   "New build / extension",
   "Not sure — need advice",
+];
+
+export const OTHER_SERVICES = [
+  {
+    id: "emergency-glass",
+    title: "Emergency glass replacements",
+    icon: "Siren",
+    body:
+      "Smashed window? We respond fast. Same-day emergency glass replacement across Adelaide metro — securing your home or business against the weather and intruders while we source the right glass.",
+  },
+  {
+    id: "pet-doors",
+    title: "Pet doors — supply & install",
+    icon: "PawPrint",
+    body:
+      "Pet door installation in existing doors and windows — including glass panels. Cleanly cut, properly sealed, and sized to suit your pet, from cats to large breeds.",
+  },
+  {
+    id: "broken-glass",
+    title: "Broken glass repairs",
+    icon: "Hammer",
+    body:
+      "Cracked, chipped or shattered glass professionally removed and replaced. Float, laminated, toughened and double-glazed units — stocked or available to order to match your existing joinery.",
+  },
+  {
+    id: "shower-screens",
+    title: "Shower screens",
+    icon: "Droplets",
+    body:
+      "Frameless and semi-frameless shower screens measured and installed to suit any bathroom. Toughened safety glass as standard, with a clean, modern finish that lasts.",
+  },
+  {
+    id: "mirrors",
+    title: "Mirrors",
+    icon: "Square",
+    body:
+      "Wall mirrors, vanity mirrors, full-height feature mirrors — custom-cut and installed to your spec. From simple polished-edge to bevelled and framed finishes.",
+  },
+  {
+    id: "splashbacks",
+    title: "Glass splashbacks",
+    icon: "Flame",
+    body:
+      "Toughened glass splashbacks for kitchens and laundries. Available in standard colours or colour-matched to your scheme — heat-resistant, hygienic, and easy to keep clean.",
+  },
 ];

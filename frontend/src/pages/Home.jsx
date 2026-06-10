@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Wrench, Home as HomeIcon, Layers, ShieldCheck } from "lucide-react";
 import { IMAGES, SERVICES, SITE } from "../lib/siteData";
+import Reviews from "../components/Reviews";
 
 const iconMap = { Wrench, Home: HomeIcon, Layers, ShieldCheck };
 
@@ -62,39 +63,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PHILOSOPHY */}
+      {/* WELCOME */}
       <section className="nv-section">
-        <div className="nv-container grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
+        <div className="nv-container grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start">
           <div className="md:col-span-5">
             <img
               src={IMAGES.glazierWorking}
-              alt="Theo, qualified glazier at work"
+              alt="A recent NikoVision uPVC installation"
               data-testid="philosophy-image"
-              className="w-full h-[480px] object-cover shadow-md"
+              className="w-full h-[560px] object-cover shadow-md"
             />
           </div>
           <div className="md:col-span-6 md:col-start-7">
-            <p className="nv-overline mb-5">A word from Theo</p>
+            <p className="nv-overline mb-5">Welcome</p>
             <h2 className="font-heading text-4xl sm:text-5xl leading-tight">
-              The trade deserves better — so I built my own.
+              Welcome to NikoVision.
             </h2>
-            <p className="mt-8 text-brand-inkMuted leading-relaxed text-base">
-              I'm Theo. I'm 25, a qualified glazier trained at Tonsley TAFE,
-              and I finished my apprenticeship specialising in uPVC. Working
-              for others, I saw too many corners cut, too little pride taken.
-              NikoVision exists because Adelaide homes — and the people in
-              them — deserve more than that.
-            </p>
-            <p className="mt-5 text-brand-inkMuted leading-relaxed text-base">
-              Every job is measured twice, finished tidy, and stood behind.
-              That's it. That's the standard.
-            </p>
+            <div className="mt-8 space-y-5 text-brand-inkMuted leading-relaxed text-base">
+              <p>
+                My name is Theo, and I'm a qualified glazier born and raised
+                in Adelaide. After completing my apprenticeship in the
+                glazing industry, I quickly noticed a decline in the
+                enthusiasm, craftsmanship, and attention to detail being
+                delivered across many projects. It was at that moment I
+                decided I wanted to raise the standard and provide customers
+                with the quality workmanship they deserve.
+              </p>
+              <p>
+                At NikoVision, quality isn't just a goal — it's the
+                foundation of everything we do. I specialise in uPVC windows
+                and doors, offering durable, energy-efficient solutions that
+                enhance both the comfort and appearance of your home or
+                business. Beyond uPVC installations, we cater to all aspects
+                of glass and glazing, delivering expert workmanship and
+                reliable service on every project.
+              </p>
+              <p>
+                We take pride in our attention to detail, commitment to
+                customer satisfaction, and dedication to getting the job done
+                right the first time. No shortcuts, no compromises — just
+                quality craftsmanship you can trust.
+              </p>
+              <p>
+                Thank you for visiting NikoVision. I look forward to helping
+                bring your vision to life.
+              </p>
+            </div>
             <Link
               to="/about"
               data-testid="philosophy-cta"
               className="mt-10 inline-flex items-center gap-2 text-brand-navy text-sm tracking-wide font-medium border-b border-brand-navy/30 hover:border-brand-navy pb-1 transition-colors"
             >
-              Read more about Theo
+              More about NikoVision
             </Link>
           </div>
         </div>
@@ -168,14 +188,14 @@ export default function Home() {
         <div className="nv-container grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
           <div className="md:col-span-5">
             <p className="nv-overline text-brand-sand">
-              Deceuninck Legend
+              uPVC Legend 80
             </p>
             <h2 className="font-heading text-4xl sm:text-5xl text-white mt-5 leading-tight">
               The frame system we put our name to.
             </h2>
             <p className="mt-8 text-white/70 leading-relaxed text-base">
               Belgian-engineered uPVC profiles, designed for Australian
-              conditions. Five-chamber sashes, deep glazing pockets, and a
+              conditions. Six-chamber sashes, 80mm frame depth, and a
               decade-long manufacturer warranty.
             </p>
             <Link
@@ -183,13 +203,13 @@ export default function Home() {
               data-testid="legend-cta"
               className="mt-10 inline-flex items-center gap-2 text-brand-sand text-sm tracking-wide font-medium border-b border-brand-sand/40 hover:border-brand-sand pb-1 transition-colors"
             >
-              Learn more about Legend
+              Learn more about Legend 80
             </Link>
           </div>
           <div className="md:col-span-7">
             <img
               src={IMAGES.windowFrameDetail}
-              alt="Deceuninck Legend uPVC window detail"
+              alt="uPVC Legend 80 window installation"
               data-testid="legend-image"
               className="w-full h-[480px] object-cover"
             />
@@ -239,6 +259,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* REVIEWS */}
+      <Reviews />
 
       {/* CONTACT BANNER */}
       <section

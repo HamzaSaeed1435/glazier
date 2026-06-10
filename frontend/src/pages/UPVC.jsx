@@ -26,7 +26,7 @@ export default function UPVC() {
       <section className="nv-section pt-32">
         <div className="nv-container grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           <div className="md:col-span-7">
-            <p className="nv-overline mb-6">What is uPVC?</p>
+            <p className="nv-overline mb-6">uPVC Legend 80</p>
             <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl leading-[1.02] tracking-tight">
               A quieter,
               <br />
@@ -52,8 +52,8 @@ export default function UPVC() {
           </div>
           <div className="md:col-span-5">
             <img
-              src={IMAGES.architecturalDetail}
-              alt="Modern home with uPVC windows"
+              src={IMAGES.upvcHero}
+              alt="NikoVision uPVC Legend 80 installation"
               data-testid="upvc-hero-image"
               className="w-full h-[520px] object-cover shadow-md"
             />
@@ -109,7 +109,7 @@ export default function UPVC() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center mb-20">
             <div className="md:col-span-6">
               <p className="nv-overline text-brand-sand mb-6">
-                Deceuninck  ·  Legend
+                Deceuninck  ·  Legend 80
               </p>
               <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl leading-tight text-white">
                 The frame system we trust with our name.
@@ -117,21 +117,21 @@ export default function UPVC() {
               <div className="mt-10 space-y-5 text-white/75 leading-relaxed text-base max-w-xl">
                 <p>
                   Deceuninck have been engineering uPVC profiles in Belgium
-                  since 1937. The Legend system is their premium residential
-                  platform — engineered around acoustic comfort, thermal
-                  performance and longevity in demanding climates.
+                  since 1937. The Legend 80 system is their premium
+                  residential platform — engineered around acoustic comfort,
+                  thermal performance and longevity in demanding climates.
                 </p>
                 <p>
-                  Every NikoVision installation uses Legend extrusions, paired
-                  with quality double-glazing units, multi-point hardware and
-                  marine-grade seals.
+                  Every NikoVision installation uses Legend 80 extrusions,
+                  paired with quality double-glazing units, multi-point
+                  hardware and marine-grade seals.
                 </p>
               </div>
             </div>
             <div className="md:col-span-6">
               <img
-                src={IMAGES.windowFrameDetail}
-                alt="Deceuninck Legend window detail"
+                src={IMAGES.legendDetail}
+                alt="Deceuninck Legend 80 window detail"
                 data-testid="legend-detail-image"
                 className="w-full h-[520px] object-cover"
               />

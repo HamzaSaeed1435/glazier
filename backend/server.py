@@ -63,10 +63,47 @@ class Contact(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+class ReviewCreate(BaseModel):
+    name: str = Field(..., min_length=1, max_length=120)
+    suburb: Optional[str] = Field(default=None, max_length=120)
+    rating: int = Field(..., ge=1, le=5)
+    text: str = Field(..., min_length=4, max_length=2000)
+
+
+class Review(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    suburb: Optional[str] = None
+    rating: int
+    text: str
+    published: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 # -------- Routes --------
 @api_router.get("/")
 async def root():
     return {"message": "NikoVision API", "status": "ok"}
+
+
+@api_router.post("/reviews", response_model=Review, status_code=201)
+async def create_review(payload: ReviewCreate):
+    review = Review(**payload.model_dump())
+    doc = review.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.reviews.insert_one(doc)
+    logger.info("New review: %s (%d stars)", review.name, review.rating)
+    return review
+
+
+@api_router.get("/reviews", response_model=List[Review])
+async def list_reviews():
+    items = await db.reviews.find({"published": True}, {"_id": 0}).sort("created_at", -1).to_list(200)
+    for it in items:
+        if isinstance(it.get('created_at'), str):
+            it['created_at'] = datetime.fromisoformat(it['created_at'])
+    return items
 
 
 @api_router.post("/quotes", response_model=Quote, status_code=201)

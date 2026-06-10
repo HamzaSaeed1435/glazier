@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, ChevronDown } from "lucide-react";
 import { SITE } from "../lib/siteData";
+
+const SERVICES_SUB = [
+  { to: "/services#emergency-glass", label: "Emergency glass replacements" },
+  { to: "/services#pet-doors", label: "Pet doors" },
+  { to: "/services#broken-glass", label: "Broken glass repairs" },
+  { to: "/services#shower-screens", label: "Shower screens" },
+  { to: "/services#mirrors", label: "Mirrors" },
+  { to: "/services#splashbacks", label: "Splashbacks" },
+];
 
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/upvc", label: "uPVC & Legend" },
+  { to: "/services", label: "Services", children: SERVICES_SUB },
+  { to: "/upvc", label: "uPVC Legend 80" },
   { to: "/gallery", label: "Gallery" },
   { to: "/contact", label: "Contact" },
 ];
@@ -15,6 +24,8 @@ const navItems = [
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdown, setDropdown] = useState(null); // desktop hover dropdown
+  const [mobileSub, setMobileSub] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -26,15 +37,17 @@ export const Navbar = () => {
 
   useEffect(() => {
     setOpen(false);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [location.pathname]);
+    setMobileSub(null);
+    setDropdown(null);
+    if (!location.hash) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location.pathname, location.hash]);
 
   return (
     <header
       data-testid="site-navbar"
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/85 backdrop-blur-xl border-b border-brand-line/70"
+          ? "bg-white/90 backdrop-blur-xl border-b border-brand-line/70"
           : "bg-transparent"
       }`}
     >
@@ -52,22 +65,50 @@ export const Navbar = () => {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-9">
           {navItems.map((item) => (
-            <NavLink
+            <div
               key={item.to}
-              to={item.to}
-              data-testid={`nav-link-${item.label.toLowerCase().replace(/[^a-z]/g, "")}`}
-              className={({ isActive }) =>
-                `nv-link relative py-2 ${
-                  isActive ? "text-brand-navy" : ""
-                } after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-px after:bg-brand-navy after:transition-all after:duration-300 ${
-                  isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
-                }`
-              }
+              className="relative"
+              onMouseEnter={() => item.children && setDropdown(item.label)}
+              onMouseLeave={() => item.children && setDropdown(null)}
             >
-              {item.label}
-            </NavLink>
+              <NavLink
+                to={item.to}
+                data-testid={`nav-link-${item.label.toLowerCase().replace(/[^a-z]/g, "")}`}
+                className={({ isActive }) =>
+                  `nv-link relative py-2 inline-flex items-center gap-1 ${
+                    isActive ? "text-brand-navy" : ""
+                  } after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-px after:bg-brand-navy after:transition-all after:duration-300 ${
+                    isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
+                  }`
+                }
+              >
+                {item.label}
+                {item.children && <ChevronDown size={14} strokeWidth={1.6} />}
+              </NavLink>
+
+              {item.children && dropdown === item.label && (
+                <div
+                  data-testid="nav-dropdown-services"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-3 min-w-[300px]"
+                >
+                  <ul className="bg-white border border-brand-line/80 shadow-lg py-2">
+                    {item.children.map((c) => (
+                      <li key={c.to}>
+                        <Link
+                          to={c.to}
+                          data-testid={`nav-sub-${c.to.split("#")[1]}`}
+                          className="block px-6 py-3 text-sm text-brand-ink hover:bg-brand-surfaceAlt hover:text-brand-navy transition-colors"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -91,21 +132,57 @@ export const Navbar = () => {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-white border-t border-brand-line">
+        <div className="lg:hidden bg-white border-t border-brand-line max-h-[80vh] overflow-y-auto">
           <div className="nv-container py-6 flex flex-col gap-1">
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                data-testid={`mobile-nav-link-${item.label.toLowerCase().replace(/[^a-z]/g, "")}`}
-                className={({ isActive }) =>
-                  `py-3 border-b border-brand-line/70 ${
-                    isActive ? "text-brand-navy" : "text-brand-ink"
-                  } text-base font-medium`
-                }
-              >
-                {item.label}
-              </NavLink>
+              <div key={item.to} className="border-b border-brand-line/70">
+                <div className="flex items-center justify-between">
+                  <NavLink
+                    to={item.to}
+                    data-testid={`mobile-nav-link-${item.label.toLowerCase().replace(/[^a-z]/g, "")}`}
+                    className={({ isActive }) =>
+                      `flex-1 py-3 ${
+                        isActive ? "text-brand-navy" : "text-brand-ink"
+                      } text-base font-medium`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                  {item.children && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileSub((v) => (v === item.label ? null : item.label))
+                      }
+                      data-testid="mobile-services-toggle"
+                      className="p-3"
+                      aria-label="Toggle submenu"
+                    >
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform ${
+                          mobileSub === item.label ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  )}
+                </div>
+                {item.children && mobileSub === item.label && (
+                  <ul className="pb-3 pl-3 space-y-1">
+                    {item.children.map((c) => (
+                      <li key={c.to}>
+                        <Link
+                          to={c.to}
+                          data-testid={`mobile-nav-sub-${c.to.split("#")[1]}`}
+                          className="block py-2 text-sm text-brand-inkMuted hover:text-brand-navy"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             ))}
             <Link
               to="/contact"
@@ -122,6 +199,7 @@ export const Navbar = () => {
 };
 
 export const Footer = () => {
+  const footerLinks = navItems.map((n) => ({ to: n.to, label: n.label }));
   return (
     <footer data-testid="site-footer" className="bg-brand-ink text-white/80">
       <div className="nv-container py-20 grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -139,7 +217,7 @@ export const Footer = () => {
         <div className="md:col-span-3">
           <p className="nv-overline text-white/60 mb-5">Explore</p>
           <ul className="space-y-3 text-sm">
-            {navItems.map((n) => (
+            {footerLinks.map((n) => (
               <li key={n.to}>
                 <Link
                   data-testid={`footer-link-${n.label.toLowerCase().replace(/[^a-z]/g, "")}`}

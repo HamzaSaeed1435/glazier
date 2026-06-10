@@ -6,7 +6,7 @@ const values = [
   {
     icon: GraduationCap,
     title: "Trained, qualified, certified",
-    body: "Tonsley TAFE-trained glazier with a completed uPVC apprenticeship — and a hunger to keep learning every job.",
+    body: "Adelaide-trained qualified glazier with a completed apprenticeship — and a hunger to keep learning every job.",
   },
   {
     icon: Eye,
@@ -33,40 +33,46 @@ export default function About() {
           <div className="md:col-span-7">
             <p className="nv-overline mb-6">About</p>
             <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl leading-[1.02] tracking-tight">
-              Hi, I'm Theo.
-              <br />
+              Welcome to{" "}
               <span className="italic font-normal text-brand-navy">
-                Glazier by trade,
-              </span>{" "}
-              perfectionist by choice.
+                NikoVision.
+              </span>
             </h1>
             <div className="mt-12 max-w-2xl space-y-6 text-brand-inkMuted leading-relaxed text-base">
               <p>
-                Full name's Theofani Tzelepis, but everyone calls me Theo. I'm
-                25 years old, I trained at Tonsley TAFE and finished my
-                apprenticeship as a uPVC glazier — though I'm comfortable
-                across all aspects of glass and glazing.
+                My name is Theo, and I'm a qualified glazier born and raised
+                in Adelaide. After completing my apprenticeship in the
+                glazing industry, I quickly noticed a decline in the
+                enthusiasm, craftsmanship, and attention to detail being
+                delivered across many projects. It was at that moment I
+                decided I wanted to raise the standard and provide customers
+                with the quality workmanship they deserve.
               </p>
               <p>
-                I started NikoVision because I was never content working for
-                others. I saw too much of the dedication, craftsmanship and
-                enthusiasm being lost from a trade that used to take real
-                pride in itself. That bothered me. I want to be one of the
-                future's leading uPVC suppliers and installers in South
-                Australia — and the way to get there is one well-finished job
-                at a time.
+                At NikoVision, quality isn't just a goal — it's the
+                foundation of everything we do. I specialise in uPVC windows
+                and doors, offering durable, energy-efficient solutions that
+                enhance both the comfort and appearance of your home or
+                business. Beyond uPVC installations, we cater to all aspects
+                of glass and glazing, delivering expert workmanship and
+                reliable service on every project.
               </p>
               <p>
-                When I quote a job, I quote it honestly. When I install, I
-                install like it's my own home. And when I leave site, I leave
-                it clean.
+                We take pride in our attention to detail, commitment to
+                customer satisfaction, and dedication to getting the job
+                done right the first time. No shortcuts, no compromises —
+                just quality craftsmanship you can trust.
+              </p>
+              <p>
+                Thank you for visiting NikoVision. I look forward to
+                helping bring your vision to life.
               </p>
             </div>
           </div>
           <div className="md:col-span-5">
             <img
-              src={IMAGES.glazierWorking}
-              alt="Theo working on a uPVC window"
+              src={IMAGES.aboutPortrait}
+              alt="A recent NikoVision uPVC installation"
               data-testid="about-portrait"
               className="w-full h-[560px] object-cover shadow-md"
             />
@@ -88,7 +94,7 @@ export default function About() {
 
       <section className="bg-brand-surfaceAlt nv-section">
         <div className="nv-container">
-          <p className="nv-overline mb-5">What I stand for</p>
+          <p className="nv-overline mb-5">What we stand for</p>
           <h2 className="font-heading text-4xl sm:text-5xl max-w-3xl leading-tight">
             Four principles. Every single job.
           </h2>
@@ -122,7 +128,7 @@ export default function About() {
           </h2>
           <p className="mt-6 text-brand-inkMuted leading-relaxed">
             Whether it's one window or the whole house, drop your details in
-            and I'll get back to you personally.
+            and Theo will get back to you personally.
           </p>
           <Link
             to="/contact"

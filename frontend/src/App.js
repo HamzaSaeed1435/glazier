@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "sonner";
 import { PageShell } from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,6 +12,7 @@ import Contact from "./pages/Contact";
 function App() {
   return (
     <div className="App">
+      <Toaster richColors position="top-right" />
       <BrowserRouter>
         <PageShell>
           <Routes>

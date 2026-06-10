@@ -1,13 +1,28 @@
-import { Link } from "react-router-dom";
-import { Layers, Wrench, Home as HomeIcon, ShieldCheck, ArrowUpRight, Check } from "lucide-react";
-import { IMAGES, SERVICES } from "../lib/siteData";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  Layers,
+  Wrench,
+  Home as HomeIcon,
+  ShieldCheck,
+  ArrowUpRight,
+  Check,
+  Siren,
+  PawPrint,
+  Hammer,
+  Droplets,
+  Square,
+  Flame,
+} from "lucide-react";
+import { IMAGES, SERVICES, OTHER_SERVICES } from "../lib/siteData";
 
 const iconMap = { Layers, Wrench, Home: HomeIcon, ShieldCheck };
+const otherIconMap = { Siren, PawPrint, Hammer, Droplets, Square, Flame };
 
 const detailed = {
   "supply-fitment": [
-    "uPVC windows — casement, awning, sliding, double-hung, tilt-and-turn",
-    "uPVC doors — French, sliding, hinged, bifold",
+    "uPVC windows — fixed, awning, sliding, French, tilt-and-turn",
+    "uPVC doors — French, sliding, hinged",
     "Custom-measured to your openings",
     "All flashing, sealants and finishing carpentry included",
   ],
@@ -32,6 +47,21 @@ const detailed = {
 };
 
 export default function Services() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          const top = el.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top, behavior: "smooth" });
+        }, 200);
+      }
+    }
+  }, [hash]);
+
   return (
     <div data-testid="page-services">
       <section className="nv-section pt-32">
@@ -101,12 +131,58 @@ export default function Services() {
         </div>
       </section>
 
+      <section className="bg-brand-surfaceAlt py-24 md:py-32">
+        <div className="nv-container">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+            <div className="md:col-span-5">
+              <p className="nv-overline mb-5">More glass & glazing</p>
+              <h2 className="font-heading text-4xl sm:text-5xl leading-tight">
+                Beyond windows and doors.
+              </h2>
+            </div>
+            <div className="md:col-span-6 md:col-start-7">
+              <p className="text-brand-inkMuted leading-relaxed text-base">
+                NikoVision covers the full breadth of residential glass and
+                glazing work. From a broken pane on a Sunday morning to a
+                full bathroom shower screen — one trade, one number.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-brand-line">
+            {OTHER_SERVICES.map((s) => {
+              const Icon = otherIconMap[s.icon] || Layers;
+              return (
+                <div
+                  key={s.id}
+                  id={s.id}
+                  data-testid={`other-service-${s.id}`}
+                  className="bg-brand-surfaceAlt p-10 hover:bg-white transition-colors duration-500 scroll-mt-28"
+                >
+                  <Icon
+                    size={28}
+                    strokeWidth={1.4}
+                    className="text-brand-navy mb-8"
+                  />
+                  <h3 className="font-heading text-2xl leading-snug">
+                    {s.title}
+                  </h3>
+                  <p className="mt-4 text-sm text-brand-inkMuted leading-relaxed">
+                    {s.body}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-brand-ink text-white py-24">
         <div className="nv-container flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
           <div>
             <p className="nv-overline text-brand-sand mb-5">Curious about uPVC?</p>
             <h2 className="font-heading text-3xl sm:text-4xl text-white leading-tight max-w-xl">
-              The benefits, explained — and the Deceuninck Legend system.
+              The benefits, explained — and the Legend 80 system.
             </h2>
           </div>
           <Link
