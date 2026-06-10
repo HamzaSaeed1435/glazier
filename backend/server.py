@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import logging
+import resend
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
@@ -18,6 +20,20 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# Resend setup
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
+NOTIFICATION_EMAIL = os.environ.get('NOTIFICATION_EMAIL')
+if RESEND_API_KEY:
+    resend.api_key = RESEND_API_KEY
+
+# Logging configured before route definitions
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Create the main app without a prefix
 app = FastAPI(title="NikoVision API")
@@ -113,7 +129,68 @@ async def create_quote(payload: QuoteCreate):
     doc['created_at'] = doc['created_at'].isoformat()
     await db.quotes.insert_one(doc)
     logger.info("New quote received: %s (%s) - %s", quote.name, quote.email, quote.job_type)
+
+    # Fire-and-forget email notification — never block the API response on email
+    asyncio.create_task(_send_quote_email(quote))
     return quote
+
+
+def _build_quote_email_html(q: "Quote") -> str:
+    suburb_row = (
+        f'<tr><td style="padding:8px 0;color:#475569;width:140px;">Suburb</td>'
+        f'<td style="padding:8px 0;color:#0F172A;font-weight:600;">{q.suburb}</td></tr>'
+        if q.suburb else ""
+    )
+    return f"""\
+<!DOCTYPE html>
+<html><body style="margin:0;padding:0;background:#FAFAF9;font-family:Arial,Helvetica,sans-serif;color:#0F172A;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF9;padding:32px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#FFFFFF;border:1px solid #E2E8F0;">
+        <tr><td style="background:#1E3A5F;padding:28px 32px;">
+          <div style="font-family:Georgia,serif;font-size:24px;color:#FFFFFF;letter-spacing:-0.5px;">NikoVision</div>
+          <div style="font-size:11px;color:#D8C3A5;letter-spacing:3px;margin-top:6px;">NEW QUOTE REQUEST</div>
+        </td></tr>
+        <tr><td style="padding:32px;">
+          <p style="margin:0 0 16px 0;font-size:15px;color:#475569;">A new enquiry has come in via the NikoVision website.</p>
+          <table cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;border-top:1px solid #E2E8F0;margin-top:12px;">
+            <tr><td style="padding:8px 0;color:#475569;width:140px;">Name</td><td style="padding:8px 0;color:#0F172A;font-weight:600;">{q.name}</td></tr>
+            <tr><td style="padding:8px 0;color:#475569;">Email</td><td style="padding:8px 0;color:#0F172A;font-weight:600;"><a href="mailto:{q.email}" style="color:#1E3A5F;">{q.email}</a></td></tr>
+            <tr><td style="padding:8px 0;color:#475569;">Phone</td><td style="padding:8px 0;color:#0F172A;font-weight:600;"><a href="tel:{q.phone}" style="color:#1E3A5F;">{q.phone}</a></td></tr>
+            {suburb_row}
+            <tr><td style="padding:8px 0;color:#475569;">Job type</td><td style="padding:8px 0;color:#0F172A;font-weight:600;">{q.job_type}</td></tr>
+          </table>
+          <div style="margin-top:24px;padding:20px;background:#F5F5F0;border-left:3px solid #1E3A5F;">
+            <div style="font-size:11px;color:#475569;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Message</div>
+            <div style="font-size:15px;color:#0F172A;line-height:1.6;white-space:pre-wrap;">{q.message}</div>
+          </div>
+          <p style="margin-top:28px;font-size:12px;color:#94A3B8;">Submitted {q.created_at.isoformat()}<br/>Quote ID: {q.id}</p>
+        </td></tr>
+        <tr><td style="background:#0F172A;padding:16px 32px;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:1px;text-transform:uppercase;">
+          NikoVision Glazing  ·  Adelaide
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>"""
+
+
+async def _send_quote_email(q: "Quote") -> None:
+    if not RESEND_API_KEY or not NOTIFICATION_EMAIL:
+        logger.warning("Resend not configured — skipping email for quote %s", q.id)
+        return
+    try:
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [NOTIFICATION_EMAIL],
+            "subject": f"New quote request — {q.name} ({q.job_type})",
+            "html": _build_quote_email_html(q),
+            "reply_to": q.email,
+        }
+        result = await asyncio.to_thread(resend.Emails.send, params)
+        logger.info("Quote email sent to %s — id=%s", NOTIFICATION_EMAIL, result.get("id") if isinstance(result, dict) else result)
+    except Exception as e:
+        logger.error("Failed to send quote email for %s: %s", q.id, e)
 
 
 @api_router.get("/quotes", response_model=List[Quote])
@@ -145,13 +222,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 
 @app.on_event("shutdown")
