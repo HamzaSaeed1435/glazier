@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import UPVC from "./pages/UPVC";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import AllReviews from "./pages/AllReviews";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/upvc" element={<UPVC />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/reviews" element={<AllReviews />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Home />} />
           </Routes>

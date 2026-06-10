@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Star, Plus, Loader2, Quote } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Star, Plus, Loader2, Quote, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -40,9 +41,34 @@ const StarRow = ({ value, onChange, size = 22, interactive = false }) => {
   );
 };
 
+const ReviewCard = ({ r }) => (
+  <article
+    data-testid={`review-card-${r.id}`}
+    className="bg-white border border-brand-line p-8 md:p-10 flex flex-col"
+  >
+    <StarRow value={r.rating} size={18} />
+    <p className="mt-6 text-brand-ink leading-relaxed text-base font-body flex-1">
+      &ldquo;{r.text}&rdquo;
+    </p>
+    <div className="mt-8 pt-6 border-t border-brand-line">
+      <p className="font-heading text-lg text-brand-ink">{r.name}</p>
+      {r.suburb && (
+        <p className="text-xs tracking-[0.15em] uppercase text-brand-inkMuted mt-1">
+          {r.suburb}
+        </p>
+      )}
+    </div>
+  </article>
+);
+
 const initial = { name: "", suburb: "", rating: 0, text: "" };
 
-export default function Reviews() {
+/**
+ * Reviews block.
+ * mode="home" → top 6 by rating, button to /reviews + count
+ * mode="all"  → every review
+ */
+export default function Reviews({ mode = "home" }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -63,6 +89,17 @@ export default function Reviews() {
   useEffect(() => {
     fetchReviews();
   }, []);
+
+  const total = reviews.length;
+  // Top 6: sort by rating desc, then most recent first
+  const topReviews = [...reviews]
+    .sort((a, b) => {
+      if (b.rating !== a.rating) return b.rating - a.rating;
+      return new Date(b.created_at) - new Date(a.created_at);
+    })
+    .slice(0, 6);
+
+  const visible = mode === "all" ? reviews : topReviews;
 
   const update = (k) => (e) =>
     setForm((p) => ({ ...p, [k]: e?.target ? e.target.value : e }));
@@ -90,15 +127,27 @@ export default function Reviews() {
 
   return (
     <section
-      data-testid="section-reviews"
-      className="bg-brand-surfaceAlt nv-section"
+      data-testid={mode === "all" ? "section-all-reviews" : "section-reviews"}
+      className={mode === "all" ? "" : "bg-brand-surfaceAlt nv-section"}
     >
       <div className="nv-container">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
           <div className="md:col-span-7">
-            <p className="nv-overline mb-5">Reviews</p>
+            <div className="flex items-center gap-4 mb-5">
+              <p className="nv-overline">Reviews</p>
+              {!loading && total > 0 && (
+                <span
+                  data-testid="reviews-count"
+                  className="text-xs tracking-[0.15em] uppercase text-brand-inkMuted"
+                >
+                  {total} {total === 1 ? "review" : "reviews"}
+                </span>
+              )}
+            </div>
             <h2 className="font-heading text-4xl sm:text-5xl leading-tight">
-              What Adelaide homeowners are saying.
+              {mode === "all"
+                ? "Every review, in one place."
+                : "What Adelaide homeowners are saying."}
             </h2>
           </div>
           <div className="md:col-span-4 md:col-start-9 flex md:justify-end md:items-end">
@@ -187,7 +236,7 @@ export default function Reviews() {
 
         {loading ? (
           <p className="text-brand-inkMuted">Loading reviews…</p>
-        ) : reviews.length === 0 ? (
+        ) : visible.length === 0 ? (
           <div
             data-testid="reviews-empty"
             className="bg-white border border-dashed border-brand-line p-12 text-center"
@@ -199,35 +248,30 @@ export default function Reviews() {
             />
             <h3 className="font-heading text-2xl">No reviews yet — be the first.</h3>
             <p className="mt-3 text-brand-inkMuted text-sm max-w-md mx-auto">
-              If we've done a job for you, we'd be grateful for a few honest
-              words. It helps other Adelaide homeowners find us.
+              If we&apos;ve done a job for you, we&apos;d be grateful for a
+              few honest words. It helps other Adelaide homeowners find us.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {reviews.map((r) => (
-              <article
-                key={r.id}
-                data-testid={`review-card-${r.id}`}
-                className="bg-white border border-brand-line p-8 md:p-10 flex flex-col"
-              >
-                <StarRow value={r.rating} size={18} />
-                <p className="mt-6 text-brand-ink leading-relaxed text-base font-body flex-1">
-                  "{r.text}"
-                </p>
-                <div className="mt-8 pt-6 border-t border-brand-line">
-                  <p className="font-heading text-lg text-brand-ink">
-                    {r.name}
-                  </p>
-                  {r.suburb && (
-                    <p className="text-xs tracking-[0.15em] uppercase text-brand-inkMuted mt-1">
-                      {r.suburb}
-                    </p>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {visible.map((r) => (
+                <ReviewCard key={r.id} r={r} />
+              ))}
+            </div>
+
+            {mode === "home" && total > 6 && (
+              <div className="mt-14 flex justify-center">
+                <Link
+                  to="/reviews"
+                  data-testid="view-all-reviews"
+                  className="nv-btn-secondary"
+                >
+                  View all {total} reviews <ArrowUpRight size={16} />
+                </Link>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
