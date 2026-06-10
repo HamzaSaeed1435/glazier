@@ -218,22 +218,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
             <img
               src="/gallery/gallery-01.jpeg"
-              alt="uPVC sliding door installation"
+              alt="NikoVision uPVC installation"
               className="md:col-span-7 h-72 md:h-[420px] w-full object-cover"
             />
             <img
-              src="/gallery/gallery-15.jpeg"
-              alt="uPVC window with pool view"
+              src="/gallery/gallery-05.jpeg"
+              alt="NikoVision uPVC installation"
               className="md:col-span-5 h-72 md:h-[420px] w-full object-cover"
             />
             <img
-              src="/gallery/gallery-04.jpeg"
-              alt="Internal uPVC frame finish"
+              src="/gallery/gallery-12.jpeg"
+              alt="NikoVision uPVC installation"
               className="md:col-span-5 h-72 md:h-[360px] w-full object-cover"
             />
             <img
-              src="/gallery/gallery-31.jpeg"
-              alt="Completed uPVC renovation"
+              src="/gallery/gallery-20.jpeg"
+              alt="NikoVision uPVC installation"
               className="md:col-span-7 h-72 md:h-[360px] w-full object-cover"
             />
           </div>
