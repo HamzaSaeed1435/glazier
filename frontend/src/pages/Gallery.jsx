@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { X } from "lucide-react";
 
-// 31 real NikoVision job photos, served from /public/gallery/
-const GALLERY = Array.from({ length: 31 }, (_, i) => ({
+// 36 real NikoVision job photos, served from /public/gallery/
+const GALLERY = Array.from({ length: 36 }, (_, i) => ({
   src: `/gallery/gallery-${String(i + 1).padStart(2, "0")}.jpeg`,
   alt: `NikoVision uPVC installation ${i + 1}`,
 }));
