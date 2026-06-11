@@ -68,8 +68,8 @@ export default function Home() {
         <div className="nv-container grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start">
           <div className="md:col-span-5">
             <img
-              src={IMAGES.glazierWorking}
-              alt="A recent NikoVision uPVC installation"
+              src="/featured/welcome.jpeg"
+              alt="NikoVision uPVC tilt window — Golden Oak finish"
               data-testid="philosophy-image"
               className="w-full h-[560px] object-cover shadow-md"
             />
