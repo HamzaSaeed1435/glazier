@@ -129,12 +129,14 @@ export default function UPVC() {
               </div>
             </div>
             <div className="md:col-span-6">
-              <img
-                src={IMAGES.legendDetail}
-                alt="Deceuninck Legend 80 window detail"
-                data-testid="legend-detail-image"
-                className="w-full h-[520px] object-cover"
-              />
+              <div className="bg-white p-8 md:p-12 flex items-center justify-center h-[520px]">
+                <img
+                  src="/products/legend-80-profile.jpeg"
+                  alt="Deceuninck Legend 80 uPVC frame profile cross-section"
+                  data-testid="legend-detail-image"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
             </div>
           </div>
 
