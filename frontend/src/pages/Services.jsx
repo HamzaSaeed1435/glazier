@@ -98,7 +98,7 @@ export default function Services() {
                         "/featured/service-supply.jpeg",
                         "/featured/service-repairs.jpeg",
                         "/featured/service-renovations.jpeg",
-                        IMAGES.windowFrameDetail,
+                        "/featured/service-flyscreens.jpeg",
                       ][idx % 4]
                     }
                     alt={s.title}

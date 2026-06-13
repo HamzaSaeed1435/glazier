@@ -240,8 +240,8 @@ export default function Contact() {
           {/* Contact details */}
           <aside className="md:col-span-5 order-1 md:order-2 space-y-10">
             <img
-              src={IMAGES.windowFrameClose}
-              alt="NikoVision contact"
+              src="/featured/contact-side.jpeg"
+              alt="NikoVision uPVC sliding door installation"
               className="w-full h-64 object-cover shadow-md"
             />
 
