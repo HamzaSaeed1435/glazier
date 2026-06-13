@@ -95,9 +95,9 @@ export default function Services() {
                   <img
                     src={
                       [
-                        IMAGES.architecturalHouse,
-                        IMAGES.windowFrameClose,
-                        IMAGES.architecturalDetail,
+                        "/featured/service-supply.jpeg",
+                        "/featured/service-repairs.jpeg",
+                        "/featured/service-renovations.jpeg",
                         IMAGES.windowFrameDetail,
                       ][idx % 4]
                     }

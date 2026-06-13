@@ -208,8 +208,8 @@ export default function Home() {
           </div>
           <div className="md:col-span-7">
             <img
-              src={IMAGES.windowFrameDetail}
-              alt="uPVC Legend 80 window installation"
+              src="/featured/frame-system.jpeg"
+              alt="uPVC Legend 80 white sash window installation"
               data-testid="legend-image"
               className="w-full h-[480px] object-cover"
             />

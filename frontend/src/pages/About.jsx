@@ -71,8 +71,8 @@ export default function About() {
           </div>
           <div className="md:col-span-5">
             <img
-              src={IMAGES.aboutPortrait}
-              alt="A recent NikoVision uPVC installation"
+              src="/featured/about-welcome.jpeg"
+              alt="NikoVision uPVC window with greenery view"
               data-testid="about-portrait"
               className="w-full h-[560px] object-cover shadow-md"
             />
