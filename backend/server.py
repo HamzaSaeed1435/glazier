@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Header
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -120,6 +120,17 @@ async def list_reviews():
         if isinstance(it.get('created_at'), str):
             it['created_at'] = datetime.fromisoformat(it['created_at'])
     return items
+
+
+@api_router.delete("/admin/reviews")
+async def admin_delete_all_reviews(x_admin_token: Optional[str] = Header(default=None)):
+    """One-time cleanup endpoint. Requires X-Admin-Token header matching ADMIN_TOKEN env var."""
+    expected = os.environ.get('ADMIN_TOKEN')
+    if not expected or x_admin_token != expected:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    result = await db.reviews.delete_many({})
+    logger.info("Admin wiped %d reviews", result.deleted_count)
+    return {"deleted": result.deleted_count}
 
 
 @api_router.post("/quotes", response_model=Quote, status_code=201)
